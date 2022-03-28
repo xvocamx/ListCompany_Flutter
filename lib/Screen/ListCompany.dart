@@ -82,7 +82,7 @@ class _ListViewCompanyPageState extends State<ListViewCompanyPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             ElevatedButton(
-              child: const Icon(Icons.navigate_before),
+              child: const Icon(Icons.navigate_before,color: Colors.black,),
               onPressed: () {
                 if (page > 1) {
                   page--;
@@ -110,16 +110,16 @@ class _ListViewCompanyPageState extends State<ListViewCompanyPage> {
             TextButton(
               style: TextButton.styleFrom(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 10),
                 shape: const RoundedRectangleBorder(
                   side: BorderSide(color: Colors.blue),
                 ),
               ),
-              child: Text('$page'),
+              child: Text('$page',style: const TextStyle(color: Colors.black)),
               onPressed: () {},
             ),
             ElevatedButton(
-              child: const Icon(Icons.navigate_next),
+              child: const Icon(Icons.navigate_next,color: Colors.black),
               onPressed: () {
                 page++;
                 netWorkRequest.numberPage(page);

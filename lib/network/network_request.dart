@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 class NetWorkRequest {
 
   static int? pageNumber;
+  // ham lay page hien tai
   numberPage(int page) {
     pageNumber = page;
     return pageNumber;
