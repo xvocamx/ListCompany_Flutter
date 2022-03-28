@@ -1,4 +1,3 @@
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_listcompany/Screen/DetailComany.dart';
 import 'package:flutter_listcompany/network/network_request.dart';
@@ -43,22 +42,11 @@ class _ListViewCompanyPageState extends State<ListViewCompanyPage> {
         title: const Center(child: Text('List Company')),
       ),
       body: isLoad == false
-          ? FutureBuilder(
-              future: netWorkRequest.fetchCompany(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<Company>> snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                      itemCount: companyDisplay.length + 1,
-                      itemBuilder: (BuildContext context, int index) {
-                        return index == 0
-                            ? _searchView()
-                            : _listItem(index - 1);
-                      });
-                }
-                return const Center(child: CircularProgressIndicator());
-              },
-            )
+          ? ListView.builder(
+              itemCount: companyDisplay.length + 1,
+              itemBuilder: (BuildContext context, int index) {
+                return index == 0 ? _searchView() : _listItem(index - 1);
+              })
           : const Center(child: CircularProgressIndicator()),
     );
   }
@@ -98,12 +86,14 @@ class _ListViewCompanyPageState extends State<ListViewCompanyPage> {
               onPressed: () {
                 if (page > 1) {
                   page--;
+                  netWorkRequest.numberPage(page);
                   setState(() {
-                    netWorkRequest.numberPage(page);
+                    isLoad = true;
                     netWorkRequest.fetchCompany().then((dataFromSever) {
                       setState(() {
                         listCompany = dataFromSever;
                         companyDisplay = listCompany;
+                        isLoad = false;
                       });
                     });
                   });
@@ -132,12 +122,14 @@ class _ListViewCompanyPageState extends State<ListViewCompanyPage> {
               child: const Icon(Icons.navigate_next),
               onPressed: () {
                 page++;
+                netWorkRequest.numberPage(page);
                 setState(() {
-                  netWorkRequest.numberPage(page);
+                  isLoad = true;
                   netWorkRequest.fetchCompany().then((dataFromSever) {
                     setState(() {
                       listCompany = dataFromSever;
                       companyDisplay = listCompany;
+                      isLoad = false;
                     });
                   });
                 });

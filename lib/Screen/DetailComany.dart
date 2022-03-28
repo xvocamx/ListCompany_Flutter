@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_listcompany/model/company.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailCompany extends StatefulWidget {
-  const DetailCompany({Key? key, required this.company}) : super(key: key);
+
+
+class DetailCompany extends StatelessWidget {
+  const DetailCompany({Key? key,required this.company}) : super(key: key);
   final Company company;
-
-  @override
-  State<DetailCompany> createState() => _DetailCompanyState();
-}
-
-class _DetailCompanyState extends State<DetailCompany> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.company.ma_so_thue.toString()),
+        title: Text(company.ma_so_thue.toString()),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -26,27 +20,26 @@ class _DetailCompanyState extends State<DetailCompany> {
             child: Column(
               children: <Widget>[
                 ListTile(
-                    title: Text(
-                        "Mã số thuế: " + widget.company.ma_so_thue.toString())),
+                    title: Text("Mã số thuế: " + company.ma_so_thue.toString())),
                 ListTile(
-                  title: Text("Tên công ty: " + widget.company.company_name),
+                  title: Text("Tên công ty: " + company.company_name),
                 ),
                 ListTile(
                   title:
-                      Text("Người đại diện: " + widget.company.representative),
+                  Text("Người đại diện: " + company.representative),
                 ),
                 ListTile(
-                  title: Text("Địa chỉ: " + widget.company.company_address),
+                  title: Text("Địa chỉ: " + company.company_address),
                 ),
                 ListTile(
-                  title: Text(widget.company.company_phone == null
+                  title: Text(company.company_phone == null
                       ? "Số điện thoại: Không có"
-                      : "Số điện thoại: " + widget.company.company_phone!),
+                      : "Số điện thoại: " + company.company_phone!),
                 ),
                 ListTile(
-                  title: Text(widget.company.managed_by == null
+                  title: Text(company.managed_by == null
                       ? "Quản lý bởi: Không có"
-                      : "Quản lý bởi: " + widget.company.managed_by!),
+                      : "Quản lý bởi: " + company.managed_by!),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -61,9 +54,9 @@ class _DetailCompanyState extends State<DetailCompany> {
                     child: const Text('Call'),
                     onPressed: () {
                       //direct phone call
-                      if (widget.company.company_phone != null) {
+                      if (company.company_phone != null) {
                         launch(
-                            'tel:${widget.company.company_phone.toString()}');
+                            'tel:${company.company_phone.toString()}');
                       } else {
                         return showToast(context);
                       }
@@ -86,4 +79,6 @@ class _DetailCompanyState extends State<DetailCompany> {
           label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
     ));
   }
+
 }
+
